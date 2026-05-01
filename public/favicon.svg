@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AlgoVis">
+  <rect width="64" height="64" rx="14" fill="#4f46e5" />
+  <path d="M14 45 25 17h8l11 28h-8l-2-6H24l-2 6h-8Zm12-13h6l-3-9-3 9Z" fill="#fff" />
+  <path d="M42 19h8L38 47h-7l11-28Z" fill="#a5b4fc" />
+  <circle cx="48" cy="45" r="4" fill="#fff" />
+</svg>
