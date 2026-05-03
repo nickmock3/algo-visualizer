@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AlgorithmsNewtonSqrtRouteImport } from './routes/algorithms/newton-sqrt'
 import { Route as AlgorithmsLowerBoundRouteImport } from './routes/algorithms/lower-bound'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlgorithmsNewtonSqrtRoute = AlgorithmsNewtonSqrtRouteImport.update({
+  id: '/algorithms/newton-sqrt',
+  path: '/algorithms/newton-sqrt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AlgorithmsLowerBoundRoute = AlgorithmsLowerBoundRouteImport.update({
@@ -26,27 +32,31 @@ const AlgorithmsLowerBoundRoute = AlgorithmsLowerBoundRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/algorithms/lower-bound': typeof AlgorithmsLowerBoundRoute
+  '/algorithms/newton-sqrt': typeof AlgorithmsNewtonSqrtRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/algorithms/lower-bound': typeof AlgorithmsLowerBoundRoute
+  '/algorithms/newton-sqrt': typeof AlgorithmsNewtonSqrtRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/algorithms/lower-bound': typeof AlgorithmsLowerBoundRoute
+  '/algorithms/newton-sqrt': typeof AlgorithmsNewtonSqrtRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/algorithms/lower-bound'
+  fullPaths: '/' | '/algorithms/lower-bound' | '/algorithms/newton-sqrt'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/algorithms/lower-bound'
-  id: '__root__' | '/' | '/algorithms/lower-bound'
+  to: '/' | '/algorithms/lower-bound' | '/algorithms/newton-sqrt'
+  id: '__root__' | '/' | '/algorithms/lower-bound' | '/algorithms/newton-sqrt'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AlgorithmsLowerBoundRoute: typeof AlgorithmsLowerBoundRoute
+  AlgorithmsNewtonSqrtRoute: typeof AlgorithmsNewtonSqrtRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/algorithms/newton-sqrt': {
+      id: '/algorithms/newton-sqrt'
+      path: '/algorithms/newton-sqrt'
+      fullPath: '/algorithms/newton-sqrt'
+      preLoaderRoute: typeof AlgorithmsNewtonSqrtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/algorithms/lower-bound': {
@@ -71,6 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AlgorithmsLowerBoundRoute: AlgorithmsLowerBoundRoute,
+  AlgorithmsNewtonSqrtRoute: AlgorithmsNewtonSqrtRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

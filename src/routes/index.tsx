@@ -24,32 +24,22 @@ function HomePage() {
             アルゴリズム学習のためのビジュアライザーです。
           </p>
 
-          <Link
-            to="/algorithms/lower-bound"
-            className="group mt-16 grid w-full max-w-[880px] grid-cols-[96px_minmax(0,1fr)_80px] items-center gap-8 rounded-xl border border-slate-200/80 bg-white/86 p-8 text-left shadow-[0_16px_48px_rgba(79,70,229,0.08)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-[0_20px_56px_rgba(79,70,229,0.11)] focus:outline-none focus:ring-2 focus:ring-indigo-200 max-sm:grid-cols-1 max-sm:gap-5 max-sm:p-6"
-          >
-            <div className="grid size-20 place-items-center rounded-lg bg-indigo-50 text-indigo-600">
-              <span className="text-4xl leading-none">≡</span>
-            </div>
-
-            <div>
-              <div className="mb-3 flex flex-wrap items-center gap-3">
-                <h2 className="text-2xl font-black tracking-normal text-slate-950">
-                  lower_bound
-                </h2>
-                <span className="rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1 text-sm font-bold text-indigo-600">
-                  二分探索
-                </span>
-              </div>
-              <p className="text-base font-medium leading-7 text-slate-600">
-                整列済み配列で、target 以上になる最初の位置を二分探索で探します。
-              </p>
-            </div>
-
-            <div className="grid size-16 place-items-center justify-self-end rounded-full bg-indigo-50 text-4xl font-bold text-indigo-600 transition group-hover:bg-indigo-600 group-hover:text-white max-sm:justify-self-start">
-              →
-            </div>
-          </Link>
+          <div className="mt-16 grid w-full max-w-[960px] gap-4">
+            <AlgorithmLink
+              to="/algorithms/lower-bound"
+              title="lower_bound"
+              tag="二分探索"
+              icon="≡"
+              description="整列済み配列で、target 以上になる最初の位置を二分探索で探します。"
+            />
+            <AlgorithmLink
+              to="/algorithms/newton-sqrt"
+              title="integer_sqrt"
+              tag="ニュートン法"
+              icon="√"
+              description="Rustで整数 x の平方根を求める反復計算を、推定値の動きと一緒に見ます。"
+            />
+          </div>
         </section>
 
         <footer className="flex items-center justify-center gap-3 pb-8 text-sm font-semibold text-slate-500">
@@ -76,11 +66,65 @@ function TopBar() {
         <span className="text-xl font-black text-slate-950">AlgoVis</span>
       </Link>
       <Link
-        to="/algorithms/lower-bound"
+        to="/algorithms/newton-sqrt"
         className="rounded-lg bg-indigo-600 px-7 py-3 text-base font-bold text-white shadow-lg shadow-indigo-600/25 transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-200"
       >
         はじめる
       </Link>
     </nav>
+  )
+}
+
+function AlgorithmLink({
+  to,
+  title,
+  tag,
+  icon,
+  description,
+}: {
+  readonly to: '/algorithms/lower-bound' | '/algorithms/newton-sqrt'
+  readonly title: string
+  readonly tag: string
+  readonly icon: string
+  readonly description: string
+}) {
+  const toneClassName = {
+    icon: 'bg-indigo-50 text-indigo-600',
+    tag: 'border-indigo-100 bg-indigo-50 text-indigo-600',
+    arrow: 'bg-indigo-50 text-indigo-600 group-hover:bg-indigo-600',
+    focus: 'hover:border-indigo-200 focus:ring-indigo-200',
+  }
+
+  return (
+    <Link
+      to={to}
+      className={`group grid grid-cols-[96px_minmax(0,1fr)_80px] items-center gap-8 rounded-xl border border-slate-200/80 bg-white/86 p-7 text-left shadow-[0_16px_48px_rgba(79,70,229,0.08)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:shadow-[0_20px_56px_rgba(79,70,229,0.11)] focus:outline-none focus:ring-2 max-sm:grid-cols-1 max-sm:gap-5 max-sm:p-6 ${toneClassName.focus}`}
+    >
+      <div className={`grid size-20 place-items-center rounded-lg ${toneClassName.icon}`}>
+        <span className="text-4xl leading-none">{icon}</span>
+      </div>
+
+      <div>
+        <div className="mb-3 flex flex-wrap items-center gap-3">
+          <h2 className="text-2xl font-black tracking-normal text-slate-950">
+            {title}
+          </h2>
+          <span
+            className={`rounded-full border px-3 py-1 text-sm font-bold ${toneClassName.tag}`}
+          >
+            {tag}
+          </span>
+        </div>
+        <p className="text-base font-medium leading-7 text-slate-600">
+          {description}
+        </p>
+      </div>
+
+      <div
+        className={`grid size-16 place-items-center justify-self-end rounded-full text-4xl font-bold transition group-hover:text-white max-sm:justify-self-start ${toneClassName.arrow}`}
+      >
+        →
+      </div>
+    </Link>
   )
 }
